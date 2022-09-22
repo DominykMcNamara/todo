@@ -4,13 +4,10 @@ export const siteTitle = "Todo App";
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div className="h-screen w-screen">
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="Todo"
-          content="A Todo app with user authentication"
-        />
+        <meta name="Todo" content="A Todo app with user authentication" />
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
