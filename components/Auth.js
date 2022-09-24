@@ -29,7 +29,9 @@ export default function Auth() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button type="submit" onClick={handleLogin}>SUBMIT</button>
+          <button type="submit" onClick={handleLogin}>
+            SUBMIT
+          </button>
         </div>
       )}
     </>
