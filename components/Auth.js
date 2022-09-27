@@ -9,29 +9,56 @@ export default function Auth() {
     e.preventDefault();
     try {
       setLoading(true);
-      const error = await supabase.auth.signInWithOtp({ email: email });
+      if(!email) {
+        alert("Please enter a valid email.")
+        return
+      }
+      const { error } = await supabase.auth.signInWithOtp({
+        email: email,
+      });
       if (error) throw error;
+      alert("Check your email for the login link!");
     } catch (error) {
       alert(error.error_description || error.message);
     } finally {
       setLoading(false);
+      setEmail("")
     }
   };
 
   return (
     <>
       {loading ? (
-        "Sending magic link..."
+        <>
+          <h2 className="text-center mt-96 font-bold text-3xl">
+            Sending magic link...
+          </h2>
+        </>
       ) : (
-        <div>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit" onClick={handleLogin}>
-            SUBMIT
-          </button>
+        <div className=" p-10">
+          <div className="flex flex-col w-96 rounded text-textReg p-10 mx-auto my-auto text-textReg bg-light">
+            <h2 className="text-center text-4xl font-bold">Sign In</h2>
+            <p className="text-center text-2xl opacity-95 font-medium">
+              No signup necessary{" "}
+            </p>
+            <label className="text-2xl mt-5 font-semibold" htmlFor="email">
+              Email:{" "}
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className=" rounded p-1 text-1xl mt-2 bg-veryLight font-medium focus:outline-none active:border-none "
+            />
+
+            <button
+              className="mt-10 bg-veryLight opacity-75 p-1 hover:opacity-100 hover:font-bold"
+              type="submit"
+              onClick={handleLogin}
+            >
+              SEND MAGIC LINK
+            </button>
+          </div>
         </div>
       )}
     </>

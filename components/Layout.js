@@ -16,8 +16,11 @@ export default function Layout({ children }) {
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
+        <script src="https://kit.fontawesome.com/6331833db0.js" crossorigin="anonymous"></script>
       </Head>
-      <main>{children}</main>
+      <main>
+        <h1 className="text-center font-semibold text-6xl mt-96">TODO</h1>
+        {children}</main>
     </div>
   );
 }

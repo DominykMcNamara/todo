@@ -26,7 +26,7 @@ export default function Home() {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <div className="w-screen">
+      <div className="w-screen h-screen">
         {session ? <TodoList session={session} /> : <Auth />}
       </div>
     </Layout>
