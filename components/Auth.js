@@ -35,7 +35,7 @@ export default function Auth() {
           </h2>
         </>
       ) : (
-        <div className=" p-10">
+        <div className=" p-96">
           <div className="flex flex-col w-96 rounded text-textReg p-10 mx-auto my-auto text-textReg bg-light">
             <h2 className="text-center text-4xl font-bold">Sign In</h2>
             <p className="text-center text-2xl opacity-95 font-medium">

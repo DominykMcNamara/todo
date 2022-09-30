@@ -24,6 +24,10 @@ export default function TodoList({ session }) {
 
   const handleInsert = async (e) => {
     e.preventDefault();
+    if (!currentTodo) {
+      alert("Please enter a todo.");
+      return;
+    }
     try {
       const { data, error } = await supabase.from("todos").insert({
         name: currentTodo,
@@ -31,6 +35,7 @@ export default function TodoList({ session }) {
         user_id: session.user.id,
       });
       alert("Todo added!");
+      setCurrentTodo("");
     } catch (err) {
       alert(error.error_description || error.message);
     } finally {
@@ -41,7 +46,7 @@ export default function TodoList({ session }) {
   const fetchTodos = async () => {
     let { data: todos, error } = await supabase
       .from("todos")
-      .select("name")
+      .select("name, id, user_id, completed")
       .eq("user_id", session.user.id);
     if (error) {
       console.log("error", error);
@@ -51,12 +56,26 @@ export default function TodoList({ session }) {
     }
   };
 
+  const handleDeleteAll = async () => {
+    const { data, error } = await supabase
+      .from("todos")
+      .delete()
+      .match({ user_id: session.user.id });
+  };
+
+  const handleDeleteCompleted = async () => {
+    const { data, error } = await supabase
+      .from("todos")
+      .delete()
+      .match({ user_id: session.user.id, completed: true });
+  };
+
   const todoItems = todos.map((todo) => (
-    <>
-      <li className="flex w-96">
-        <Todo key={todo.id} todo={todo.name} completed={todo.completed} />
+    <div key={todo.id} className="flex">
+      <li>
+        <Todo todo={todo} />
       </li>
-    </>
+    </div>
   ));
 
   useEffect(() => {
@@ -64,13 +83,15 @@ export default function TodoList({ session }) {
   });
   return (
     <>
-      <div className="w-96 mx-auto mt-10">
+      <div className="w-full mx-auto p-96 mt-10">
         <div className="flex flex-col rounded text-textReg p-10 mx-auto my-auto text-textReg bg-light">
           <div className="mx-auto  ">
-            <i
-              className="fa-solid fa-plus   absolute mt-4 ml-3 opacity-75 cursor-pointer hover:opacity-100"
+            <p
+              className="absolute  text-3xl ml-3 opacity-75 cursor-pointer hover:opacity-100"
               onClick={handleInsert}
-            ></i>
+            >
+              &#8594;
+            </p>
             <input
               type="text"
               className=" rounded p-1 text-1xl mt-2  bg-veryLight font-medium focus:outline-none active:border-none pl-10 "
@@ -85,11 +106,18 @@ export default function TodoList({ session }) {
             <p className="text-2xl text-center">Create a new todo to begin!</p>
           )}
 
-          <div className="flex flex-row justify-center align-center ">
+          <div
+            onClick={handleDeleteCompleted}
+            className="flex flex-row justify-center align-center w-96 mx-auto "
+          >
             <button className="  mt-10 bg-veryLight opacity-75 mx-auto w-48 hover:opacity-100 hover:font-bold">
               Delete Completed
             </button>
-            <button className="  ml-2 mt-10 bg-veryLight opacity-75 mx-auto w-48 hover:opacity-100 hover:font-bold">
+
+            <button
+              onClick={handleDeleteAll}
+              className="mt-10 bg-veryLight opacity-75 mx-auto w-48 hover:opacity-100 ml-5 hover:font-bold"
+            >
               Delete All
             </button>
           </div>
