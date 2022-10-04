@@ -27,16 +27,16 @@ export default function Auth() {
   };
 
   return (
-    <>
+    <div>
       {loading ? (
         <>
-          <h2 className="text-center mt-96 font-bold text-3xl">
+          <h2 className="text-center mt-4 font-bold text-3xl">
             Sending magic link...
           </h2>
         </>
       ) : (
-        <div className=" p-96">
-          <div className="flex flex-col w-96 rounded text-textReg p-10 mx-auto my-auto text-textReg bg-light">
+        <div className="p-96">
+          <div className="flex flex-col w-96 rounded text-textReg p-10 mx-auto  text-textReg bg-light">
             <h2 className="text-center text-4xl font-bold">Sign In</h2>
             <p className="text-center text-2xl opacity-95 font-medium">
               No signup necessary{" "}
@@ -61,6 +61,6 @@ export default function Auth() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

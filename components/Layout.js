@@ -19,8 +19,11 @@ export default function Layout({ children }) {
         <script src="https://kit.fontawesome.com/6331833db0.js" crossorigin="anonymous"></script>
       </Head>
       <main>
-        <h1 className="text-center font-semibold text-6xl mt-96">TODO</h1>
-        {children}</main>
+       <div className="mx-auto text-center">
+        <h1 className="font-semibold text-6xl mt-10">TODO</h1>
+        </div>
+        {children}
+      </main>
     </div>
   );
 }

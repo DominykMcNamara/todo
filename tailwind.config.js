@@ -5,6 +5,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      mobile: "0px",
+      tablet: "768px",
+      laptop: "1024px",
+      desktop: "1200px",
+    },
     colors: {
       veryLight: "#FFF5E4",
       light: "#FFC4C4",

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-
+import Layout from "./Layout";
 import Todo from "./Todo";
 export default function TodoList({ session }) {
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ export default function TodoList({ session }) {
         completed: false,
         user_id: session.user.id,
       });
-      alert("Todo added!");
+
       setCurrentTodo("");
     } catch (err) {
       alert(error.error_description || error.message);
@@ -83,8 +83,8 @@ export default function TodoList({ session }) {
   });
   return (
     <>
-      <div className="w-full mx-auto p-96 mt-10">
-        <div className="flex flex-col rounded text-textReg p-10 mx-auto my-auto text-textReg bg-light">
+      <div className="mx-auto mt-96">
+        <div className="flex flex-col rounded w-screen text-textReg p-10 mx-auto my-auto text-textReg bg-light">
           <div className="mx-auto  ">
             <p
               className="absolute  text-3xl ml-3 opacity-75 cursor-pointer hover:opacity-100"
@@ -94,7 +94,7 @@ export default function TodoList({ session }) {
             </p>
             <input
               type="text"
-              className=" rounded p-1 text-1xl mt-2  bg-veryLight font-medium focus:outline-none active:border-none pl-10 "
+              className=" rounded p-1 text-1xl mt-2 tablet:w-96   bg-veryLight font-medium focus:outline-none active:border-none pl-10 "
               placeholder="Add Todo"
               value={currentTodo}
               onChange={(e) => setCurrentTodo(e.target.value)}
