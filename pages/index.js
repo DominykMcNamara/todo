@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-
 import Head from "next/head";
-import Image from "next/image";
 import Auth from "../components/Auth";
 import Layout, { siteTitle } from "../components/Layout";
 import TodoList from "../components/TodoList";
@@ -32,3 +30,4 @@ export default function Home() {
     </Layout>
   );
 }
+

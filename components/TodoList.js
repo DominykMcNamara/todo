@@ -71,8 +71,8 @@ export default function TodoList({ session }) {
   };
 
   const todoItems = todos.map((todo) => (
-    <div key={todo.id} className="flex">
-      <li>
+    <div key={todo.id}>
+      <li >
         <Todo todo={todo} />
       </li>
     </div>
@@ -101,7 +101,7 @@ export default function TodoList({ session }) {
             ></input>
           </div>
           {todos ? (
-            <ul className="flex flex-col mx-auto">{todoItems}</ul>
+            <ul className="flex max-w-96 flex-col mx-auto">{todoItems}</ul>
           ) : (
             <p className="text-2xl text-center">Create a new todo to begin!</p>
           )}
