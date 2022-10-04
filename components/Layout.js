@@ -16,7 +16,6 @@ export default function Layout({ children }) {
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script src="https://kit.fontawesome.com/6331833db0.js" crossorigin="anonymous"></script>
       </Head>
       <main>
        <div className="mx-auto text-center">
