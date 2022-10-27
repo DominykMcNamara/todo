@@ -1,71 +1,52 @@
-import { useFormik } from "formik";
+import { Formik, Form, Field } from "formik";
 import { supabase } from "../lib/supabaseClient";
-import validate from '../lib/formValidation'
+import { TextInput } from "./TextInput";
+import * as Yup from "yup";
 
 export function Signup() {
-  const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: "",
-    },
-    validate,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
   return (
-    <>
-    <h1>Sign up</h1>
-      <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          id="firstName"
-          name="firstName"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.firstName}
-          
-        />
-         <label htmlFor="lastName">Last Name</label>
-        <input
-          id="lastName"
-          name="lastName"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.lastName}
-          
-        />
-         <label htmlFor="username"> Username </label>
-        <input
-          id="username"
-          name="username"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.username}
-        />
-         <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          value={formik.values.email}
-          
-        />
-         <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={formik.handleChange}
-          value={formik.values.password}
-          required
-        />
-          <button type="submit">Submit</button>
-      </form>
-    </>
+    <div className="bg-light w-96 mx-auto my-96 p-10 rounded">
+      <h1 className="text-center text-4xl font-bold">Sign up</h1>
+      <Formik
+        initialValues={{
+          firstName: "",
+          lastName: "",
+          username: "",
+          email: "",
+          password: "",
+        }}
+        validationSchema={Yup.object({
+          firstName: Yup.string().required("Required"),
+          lastName: Yup.string().required("Required"),
+          username: Yup.string()
+            .max(15, "Must be 20 characters or less")
+            .required("Required"),
+          email: Yup.string()
+            .email("Invalid email address")
+            .required("Required"),
+          password: Yup.string().required("Required"),
+        })}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
+      >
+        <Form className="flex flex-col mx-auto my-10 p-5">
+          <TextInput name="firstName" label="First Name" type="text" />
+
+          <TextInput name="lastName" label="Last Name" type="text" />
+
+          <TextInput name="username" label="Username" type="text" />
+
+          <TextInput name="email" label="Email" type="email" />
+
+          <TextInput name="password" label="Password" type="password" />
+
+          <button  className="mt-5 bg-veryLight opacity-75 p-1 hover:opacity-100 hover:font-bold"type="submit">Submit</button>
+        </Form>
+      </Formik>
+    </div>
   );
 }
