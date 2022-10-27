@@ -6,6 +6,7 @@ import TodoList from "../components/TodoList";
 import { supabase } from "../lib/supabaseClient";
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Signup } from "../components/Signup";
+import Login from "../components/Login";
 
 export default function Home() {
   const session = useSession()
@@ -31,7 +32,7 @@ export default function Home() {
       <title>{siteTitle}</title>
     </Head>
     <div className="w-screen h-screen">
-      {session ? <TodoList session={session} /> : <Signup />}
+      {session ? <TodoList session={session} /> : <Login />}
     </div>
   </Layout>
   )
