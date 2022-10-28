@@ -3,6 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { supabase } from "../lib/supabaseClient";
 import { TextInput } from "./TextInput";
 import * as Yup from "yup";
+import Link from "next/link";
 
 export default function Login() {
      const router = useRouter()
@@ -23,7 +24,7 @@ export default function Login() {
         })}
         onSubmit={async (values) => {
          const { data, error } = await supabase.auth.signInWithPassword({ email: values.email, password: values.password })
-         alert(error)
+         
          
         
         }}
@@ -41,7 +42,9 @@ export default function Login() {
           >
             Submit
           </button>
+          <Link href='/signup'>Dont have an account? Sign up here</Link>
         </Form>
+        
       </Formik>
     </div>
   );

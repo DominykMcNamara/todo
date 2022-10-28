@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import { Formik, Form, Field } from "formik";
 import { supabase } from "../lib/supabaseClient";
-import { TextInput } from "./TextInput";
+import { TextInput } from '../components/TextInput'
 import * as Yup from "yup";
 
 
-export function Signup() {
+export default function Signup() {
   const router = useRouter()
   return (
     <div className="bg-light w-96 mx-auto my-96 p-10 rounded">
@@ -30,7 +30,7 @@ export function Signup() {
           password: Yup.string().required("Required"),
         })}
         onSubmit={async (values) => {
-         const { data, error } = await supabase.auth.signUp({ email: values.email, password: values.password, options: { emailRedirectTo: 'http://localhost:3000/'}})
+         const { data, error } = await supabase.auth.signUp({ email: values.email, password: values.password, options: { emailRedirectTo:' https://todo-omega-lovat.vercel.app/'}})
         
          
         
