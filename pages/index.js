@@ -8,7 +8,7 @@ import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Login from "../components/Login";
 
 export default function Home() {
-  const[ session, setSession ] = useSession()
+  const session = useSession()
   const supabase = useSupabaseClient()
 
  
