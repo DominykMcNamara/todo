@@ -30,7 +30,8 @@ export default function Signup() {
           password: Yup.string().required("Required"),
         })}
         onSubmit={async (values) => {
-         const { data, error } = await supabase.auth.signUp({ email: values.email, password: values.password, options: { emailRedirectTo:' https://todo-omega-lovat.vercel.app/'}})
+         const { data, error } = await supabase.auth.signUp({ email: values.email, password: values.password, options: { emailRedirectTo:' https://todo-omega-lovat.vercel.app/ '}})
+         alert('We have sent you a link via email please verify your account.')
         
          
         

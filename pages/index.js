@@ -5,17 +5,14 @@ import Layout, { siteTitle } from "../components/Layout";
 import TodoList from "../components/TodoList";
 import { supabase } from "../lib/supabaseClient";
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import { Signup } from "../components/Signup";
 import Login from "../components/Login";
 
 export default function Home() {
-  const session = useSession()
+  const[ session, setSession ] = useSession()
   const supabase = useSupabaseClient()
 
-  useEffect(() => {
-    console.log(supabase)
-  })
- /* useEffect(() => {
+ 
+ useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       console.log(session);
@@ -24,7 +21,7 @@ export default function Home() {
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
-  }, []); */
+  }, []);
 
   return (
     <Layout >
