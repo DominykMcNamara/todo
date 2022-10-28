@@ -12,7 +12,7 @@ export default function TodoList({ session }) {
     if (session) {
       try {
         setLoading(true);
-        await supabase.auth.signOut();
+        const { error } = await supabase.auth.signOut()
         alert("Signed out!");
       } catch (error) {
         alert(error.error_description || error.message);
