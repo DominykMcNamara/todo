@@ -14,12 +14,12 @@ export default function Home() {
  
  useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
+  
       console.log(session);
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
+      console.log(session);
     });
   }, []);
 

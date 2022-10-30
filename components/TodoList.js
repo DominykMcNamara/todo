@@ -11,14 +11,13 @@ export default function TodoList({ session }) {
     e.preventDefault();
     if (session) {
       try {
-        setLoading(true);
-        const { error } = await supabase.auth.signOut()
+       
+        const { data, error } = await supabase.auth.signOut()
+
         alert("Signed out!");
       } catch (error) {
         alert(error.error_description || error.message);
-      } finally {
-        setLoading(false);
-      }
+      } 
     }
   };
 
@@ -36,7 +35,7 @@ export default function TodoList({ session }) {
       });
 
       setCurrentTodo("");
-    } catch (err) {
+    } catch (error) {
       alert(error.error_description || error.message);
     } finally {
       setLoading(false);
@@ -80,6 +79,7 @@ export default function TodoList({ session }) {
 
   useEffect(() => {
     fetchTodos();
+    console.log(session)
   });
   return (
     <>

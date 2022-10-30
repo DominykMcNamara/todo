@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { Formik, Form, Field } from "formik";
 import { supabase } from "../lib/supabaseClient";
-import { TextInput } from '../components/TextInput'
+import { TextInput } from './TextInput'
 import * as Yup from "yup";
 
 
