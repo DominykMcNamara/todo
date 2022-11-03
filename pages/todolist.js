@@ -1,24 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { supabase } from "../lib/supabaseClient";
-import Layout from "./Layout";
-import Todo from "./Todo";
-export default function TodoList({ session }) {
+import { useUser } from "@supabase/auth-helpers-react";
+import Layout from "../components/Layout";
+import Todo from "../components/Todo";
+import { useRouter } from "next/router";
+import Link from "next/link";
+export default function TodoList() {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState([]);
   const [currentTodo, setCurrentTodo] = useState("");
+  const user = useUser();
 
+  const router = useRouter();
   const handleLogout = async (e) => {
     e.preventDefault();
-    if (session) {
-      try {
-       
-        const { data, error } = await supabase.auth.signOut()
 
-        alert("Signed out!");
-      } catch (error) {
-        alert(error.error_description || error.message);
-      } 
+    try {
+      const { error } = await supabase.auth.signOut();
+
+      alert("Signed out!");
+    } catch (error) {
+      alert(error.error_description || error.message);
     }
+    router.push("/");
   };
 
   const handleInsert = async (e) => {
@@ -31,7 +35,7 @@ export default function TodoList({ session }) {
       const { data, error } = await supabase.from("todos").insert({
         name: currentTodo,
         completed: false,
-        user_id: session.user.id,
+        user_id: user.id,
       });
 
       setCurrentTodo("");
@@ -43,44 +47,51 @@ export default function TodoList({ session }) {
   };
 
   const fetchTodos = async () => {
+    setLoading(true);
     let { data: todos, error } = await supabase
       .from("todos")
       .select("name, id, user_id, completed")
-      .eq("user_id", session.user.id);
+      .match({ user_id: user.id });
     if (error) {
       console.log("error", error);
     } else {
       setTodos(todos);
-      console.log(todos);
     }
+    setLoading(false);
   };
 
   const handleDeleteAll = async () => {
     const { data, error } = await supabase
       .from("todos")
       .delete()
-      .match({ user_id: session.user.id });
+      .match({ user_id: user.id });
   };
 
   const handleDeleteCompleted = async () => {
     const { data, error } = await supabase
       .from("todos")
       .delete()
-      .match({ user_id: session.user.id, completed: true });
+      .match({ user_id: user.id, completed: true });
   };
 
   const todoItems = todos.map((todo) => (
     <div key={todo.id}>
-      <li >
+      <li>
         <Todo todo={todo} />
       </li>
     </div>
   ));
 
   useEffect(() => {
-    fetchTodos();
-    console.log(session)
+    console.log(user);
+    if (user) {
+      fetchTodos();
+    }
   });
+
+  if (!user) {
+    return <Link href={"/"}>Please sign in</Link>;
+  }
   return (
     <>
       <div className="mx-auto mt-96">

@@ -24,7 +24,7 @@ export default function Login() {
         })}
         onSubmit={async (values) => {
          const { data, error } = await supabase.auth.signInWithPassword({ email: values.email, password: values.password })
-         router.push('/')
+         router.push('/todolist')
          
         
         }}
