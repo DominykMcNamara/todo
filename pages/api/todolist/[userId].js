@@ -6,7 +6,7 @@ export const handler = async({ query: {userId}}, res) => {
         if(todolist) {
             res.status(200).json(todolist)
         } else {
-            res.status(404).json({ message: `Todo list belonging to a user with the id of %{ userId } cannot be found`})
+            res.status(404).json({ message: `Todo list belonging to a user with the id of ${ userId } cannot be found`})
         }
     } catch (err) {
         console.log(err)
