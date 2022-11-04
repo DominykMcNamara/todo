@@ -93,9 +93,11 @@ export default function TodoList() {
     return <Link href={"/"}>Please sign in</Link>;
   }
   return (
+    <Layout>
     <>
       <div className="mx-auto mt-96">
         <div className="flex flex-col rounded w-screen text-textReg p-10 mx-auto my-auto text-textReg bg-light">
+          <h1 className="text-center font-bold mb-3 text-2xl">Welcome {user.email}</h1>
           <div className="mx-auto  ">
             <p
               className="absolute  text-3xl ml-3 opacity-75 cursor-pointer hover:opacity-100"
@@ -143,5 +145,6 @@ export default function TodoList() {
         </div>
       </div>
     </>
+    </Layout>
   );
 }
